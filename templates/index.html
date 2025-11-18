@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanilla LLM Trainer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧠 Vanilla LLM Trainer</h1>
+            <p>Kendi verilerinizle LLM eğitin - Tamamen lokal</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Dosya Yükleme -->
+            <div class="card">
+                <h2>📁 Eğitim Dosyalarını Yükle</h2>
+                <div class="upload-area" id="uploadArea">
+                    <input type="file" id="fileInput" multiple accept=".txt,.pdf,.docx,.json,.jsonl">
+                    <div class="upload-placeholder">
+                        <span>Dosyaları sürükleyip bırakın veya tıklayın</span>
+                        <small>Desteklenen formatlar: TXT, PDF, DOCX, JSON, JSONL</small>
+                    </div>
+                </div>
+                <div id="fileList" class="file-list"></div>
+            </div>
+
+            <!-- Eğitim Ayarları -->
+            <div class="card">
+                <h2>⚙️ Eğitim Ayarları</h2>
+                <div class="settings-grid">
+                    <div class="setting">
+                        <label>Base Model:</label>
+                        <select id="modelSelect">
+                            <option value="microsoft/DialoGPT-medium">DialoGPT Medium</option>
+                            <option value="microsoft/DialoGPT-small">DialoGPT Small</option>
+                            <option value="gpt2">GPT-2</option>
+                        </select>
+                    </div>
+                    <div class="setting">
+                        <label>Epochs:</label>
+                        <input type="number" id="epochs" value="3" min="1" max="10">
+                    </div>
+                    <div class="setting">
+                        <label>Learning Rate:</label>
+                        <input type="number" id="learningRate" value="0.0002" step="0.0001">
+                    </div>
+                </div>
+                <button id="startTraining" class="btn btn-primary">Eğitimi Başlat</button>
+            </div>
+
+            <!-- Eğitim Durumu -->
+            <div class="card">
+                <h2>📊 Eğitim Durumu</h2>
+                <div id="trainingStatus">
+                    <div class="status-message">Eğitim başlatılmadı</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <div class="training-info">
+                        <div>İlerleme: <span id="progressText">0%</span></div>
+                        <div>Epoch: <span id="epochText">0/0</span></div>
+                        <div>Loss: <span id="lossText">0.0000</span></div>
+                    </div>
+                    <div id="trainingLog" class="training-log"></div>
+                </div>
+            </div>
+
+            <!-- Metin Üretme -->
+            <div class="card">
+                <h2>✨ Metin Üret</h2>
+                <textarea id="promptInput" placeholder="Metin girin..."></textarea>
+                <button id="generateBtn" class="btn btn-secondary">Metin Üret</button>
+                <div id="generatedOutput" class="output-area"></div>
+            </div>
+
+            <!-- Eğitilmiş Modeller -->
+            <div class="card">
+                <h2>💾 Eğitilmiş Modeller</h2>
+                <div id="modelList" class="model-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
